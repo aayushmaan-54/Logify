@@ -4,14 +4,11 @@ import { getJournalEntries } from "../../../../../actions/journal";
 import DeleteCollectionDialog from "./_components/DeleteCollectionDialog";
 import JournalFilters from "./_components/JournalFilters";
 
+type Props = {
+  params: Promise<{ collectionId: string }>
+}
 
-export default async function CollectionPage({
-  params,
-}: {
-  params: {
-    collectionId: string;
-  };
-}) {
+export default async function CollectionPage({ params }: Props) {
   const { collectionId } = await params;
   const entries = await getJournalEntries({ collectionId });
   const collections =

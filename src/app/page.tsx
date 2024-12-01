@@ -2,7 +2,7 @@ import CTA from "@/components/cta/CTA";
 import FAQs from "@/components/faq/FAQs";
 import Features from "@/components/featuresCard/Features";
 import Hero from "@/components/hero/Hero";
-import seedDatabase from "../seed/seed";
+// import seedDatabase from "../seed/seed";
 
 
 export default function Home() {

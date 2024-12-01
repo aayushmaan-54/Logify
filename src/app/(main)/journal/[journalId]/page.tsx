@@ -7,8 +7,13 @@ import Link from "next/link";
 import EditButton from "./_components/EditButton";
 import DeleteDialog from "./_components/DeleteDialog";
 
+type Props = {
+  params: Promise<{ journalId: string }>
+}
 
-export default async function JournalPage({ params }: { params: { journalId: string } }) {
+
+
+export default async function JournalPage({ params }: Props) {
   const { journalId } = await params;
 
   const entry = await getJournalEntry(journalId);

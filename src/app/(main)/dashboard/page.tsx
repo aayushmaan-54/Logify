@@ -7,24 +7,21 @@ import { Entry } from "../../../../actions/journal";
 
 
 export default async function DashboardPage() {
+/* eslint-disable @typescript-eslint/no-unused-vars */
+  const { dynamic, revalidate } = await import('./dashboard.config');
+
   const collections = await getCollections();
   const entriesData = await getJournalEntries();
 
-
   const entriesByCollection: Record<string, Entry[]> = entriesData?.data?.entries
-  ? entriesData.data.entries.reduce((acc, entry) => {
-      const collectionId = entry.collectionId || 'unorganized';
+    ? entriesData.data.entries.reduce((acc, entry) => {
+        const collectionId = entry.collectionId || 'unorganized';
+        if (!acc[collectionId]) acc[collectionId] = [];
+        acc[collectionId].push(entry);
+        return acc;
+      }, {} as Record<string, Entry[]>)
+    : {};
 
-      if (!acc[collectionId]) {
-        acc[collectionId] = [];
-      }
-
-      acc[collectionId].push(entry);
-      return acc;
-    }, {} as Record<string, Entry[]>)
-  : {};
-  
-  
   return (
     <>
       <h1 className="gradient-title text-6xl mt-8">Dashboard</h1>
@@ -32,11 +29,7 @@ export default async function DashboardPage() {
         <section className="space-y-4">
           <MoodAnalytics />
         </section>
-
-        <Collections 
-          collections={collections}
-          entriesByCollection={entriesByCollection}
-        />
+        <Collections collections={collections} entriesByCollection={entriesByCollection} />
       </main>
     </>
   );
