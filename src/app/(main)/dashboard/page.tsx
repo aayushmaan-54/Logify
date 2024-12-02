@@ -7,8 +7,6 @@ import { Entry } from "../../../../actions/journal";
 
 
 export default async function DashboardPage() {
-/* eslint-disable @typescript-eslint/no-unused-vars */
-  const { dynamic, revalidate } = await import('./dashboard.config');
 
   const collections = await getCollections();
   const entriesData = await getJournalEntries();
